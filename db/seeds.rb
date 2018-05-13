@@ -19,4 +19,11 @@ end
   )
 end
 
+20.times do
+  Item.create(
+    name: Faker::App.name,
+    description: Faker::Lorem.paragraph,
+  )
+end
+
 puts "Two users have been added"
