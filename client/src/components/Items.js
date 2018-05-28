@@ -1,23 +1,37 @@
 import React from 'react';
 import {getItems} from '../actions/items'
 import {connect} from 'react-redux';
-import {Loader, Segment, Dimmer} from 'semantic-ui-react';
+import {Button, List} from 'semantic-ui-react';
+import TradeModal from './TradeModal';
 
 class Items extends React.Component {
-
+  state = {trading: false}
   componentDidMount() {
-    this.props.dispatch(getItems(this.props.userId))
+    this.props.dispatch(getItems(this.props.user.id))
+  }
+
+  toggleTrade = (item) => {
+    console.log(this.props.currentUser, item)
+
   }
 
   listItems = () => {
-    const {items = {}} = this.props
+    const {items = {}, user, currentUser} = this.props
+
     return (
       items.map(item => {
         return (
-          <li key={item.id}>
-            <h3>{item.name}</h3>
-            <p>{item.description}</p>
-          </li>
+          <List.Item key={item.id}>
+            <List.Content>
+              <List.Header as='h3'>{item.name}</List.Header>
+              <List.Description as='p'>{item.description}</List.Description>
+              <TradeModal
+                wantedItem={item}
+                tradeRecipient={user}
+                tradeRequester={currentUser}
+              />
+            </List.Content>
+          </List.Item>
         )
       })
     )
@@ -25,17 +39,18 @@ class Items extends React.Component {
 
   render() {
     return (
-      <ul>
+      <List ordered>
         {this.listItems()}
-      </ul>
+      </List>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  const {items} = state
+  const {items, user} = state
   return {
     items,
+    currentUser: user,
   }
 }
 

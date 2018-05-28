@@ -10,6 +10,10 @@ class Api::UsersController < ApplicationController
     render json: @user
   end
 
+  def my_profile 
+    render json: current_user
+  end
+
   private
   def set_user
     @user = User.find(params[:id])

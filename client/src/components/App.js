@@ -5,10 +5,10 @@ import Login from './Login';
 import Register from './Register';
 import Flash from './Flash';
 import Home from './Home';
-import ProtectedRoute from './ProtectedRoute';
 import AuthRoute from './AuthRoute';
 import FetchUser from './FetchUser';
 import Users from './Users';
+import Profile from './Profile'
 import ShowUser from './ShowUser';
 import Items from './Items';
 import {Switch, Route} from 'react-router-dom';
@@ -22,6 +22,7 @@ class App extends Component {
         <FetchUser>
           <Switch>
             <Route exact path='/' component={Home} />
+            <Route exact path='/profile' component={Profile} />
             <Route exact path='/users' component={Users} />
             <Route exact path='/users/:id' component={ShowUser} />
             <Route exact path='/users/:id/items' component={Items} />

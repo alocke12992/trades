@@ -1,18 +1,15 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {getProfiles} from '../actions/profiles';
 import {Card, Image, Button} from 'semantic-ui-react';
 import Items from './Items';
-import {Link} from 'react-router-dom';
 
 class ShowUser extends React.Component {
   state = {showItems: false}
 
-  listItems = (userId) => {
+  listItems = (user) => {
     return (
       <div>
         <Button onClick={this.toggleItems}>Close</Button>
-        <Items userId={userId} />
+        <Items user={user} />
       </div>
     )
   }
@@ -34,7 +31,7 @@ class ShowUser extends React.Component {
         </Card.Content>
         <Card.Content extra>
           {this.state.showItems ?
-            this.listItems(user.id)
+            this.listItems(user)
             :
             <div>
               <Button basic color='green' onClick={this.toggleItems}>See Items</Button>
