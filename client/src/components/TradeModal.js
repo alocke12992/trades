@@ -26,7 +26,8 @@ class TradeModal extends React.Component {
   }
 
   render() {
-    const {tradeRecipient, wantedItem} = this.props
+    const {tradeRecipient, wantedItem, requesterItems} = this.props
+
     return (
       <Modal trigger={<Button basic color='blue'>Request Item</Button>}>
         <Grid centered>
@@ -45,7 +46,7 @@ class TradeModal extends React.Component {
                 <Header>{wantedItem.name}</Header>
                 <p>Description:<br />{wantedItem.description}</p>
                 {/* <Button basic color="blue" onClick={this.toggleTrade}>Select Item to trade</Button> */}
-                <TradeForm wantedItem={wantedItem} closeForm={this.toggleTrade} />
+                <TradeForm wantedItem={wantedItem} requesterItems={[...requesterItems]} closeForm={this.toggleTrade} />
               </Modal.Description>
             </Grid.Column>
           </Grid.Row>
@@ -55,4 +56,10 @@ class TradeModal extends React.Component {
   }
 }
 
-export default connect()(TradeModal)
+const mapStateToProps = (state) => {
+  return {
+    requesterItems: state.items
+  }
+}
+
+export default connect(mapStateToProps)(TradeModal)
