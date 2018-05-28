@@ -3,7 +3,7 @@ import axios from 'axios';
 
 class ShowItem extends React.Component {
   addItem = (item) => {
-    console.log(item)
+    axios.post('/api/users')
   }
 
   render() {
@@ -12,7 +12,7 @@ class ShowItem extends React.Component {
       <div key={item.id}>
         <h2>{item.name}</h2>
         <p>{item.description}</p>
-        <button onClick={() => this.addItem(item)}></button>
+        <button onClick={() => this.addItem(item)}>Add Item</button>
       </div>
     )
   }
