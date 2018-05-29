@@ -2,16 +2,16 @@ import React from 'react';
 import {Form, Button, Grid, Modal, Radio} from 'semantic-ui-react';
 
 class TradeForm extends React.Component {
-  state = {modalOpen: false, item: ''}
+  state = {modalOpen: false, item: {}}
 
   handleOpen = () => this.setState({modalOpen: true})
   handleChange = (e, {value}) => {
-    console.log(e, value)
-    this.setState({item: value})
+    const {requesterItems} = this.props
+    const selectedItem = requesterItems.find(i => i.id == value);
+    this.setState({item: selectedItem})
   }
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log("submit before closing")
     this.props.addItem(this.state.item)
     this.setState({modalOpen: false})
   }
@@ -26,7 +26,7 @@ class TradeForm extends React.Component {
               label={`${item.name}`}
               name={`${item.name}`}
               value={`${item.id}`}
-              checked={this.state.item === `${item.id}`}
+              checked={this.state.item.id == `${item.id}`}
               onChange={this.handleChange}
             />
           </Form.Field>

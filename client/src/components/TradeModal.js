@@ -2,31 +2,22 @@ import React from 'react';
 import TradeForm from './TradeForm';
 import {getMyItems} from '../actions/myItems';
 import {connect} from 'react-redux';
+import axios from 'axios';
 import {Button, Header, Image, Modal, Grid, Form} from 'semantic-ui-react';
 
 class TradeModal extends React.Component {
-  state = {trading: false, userItem: ""}
+  state = {userItem: ""}
   componentDidMount() {
     this.props.dispatch(getMyItems(this.props.tradeRequester.id))
   }
 
-  toggleTrade = () => {
-    this.setState(state => {
-      return {
-        trading: !state.trading
-      }
-    })
-  }
-
-  showForm = () => {
-    const {wantedItem} = this.props
-    return (
-      <TradeForm wantedItem={wantedItem} closeForm={this.toggleTrade} />
-    )
-  }
-
   addItem = (item) => {
     this.setState({userItem: item})
+  }
+
+  submitTrade = () => {
+    const {userItem} = this.state
+    const {wantedItem, tradeRecipient, tradeRequester} = this.props
   }
 
   render() {
@@ -57,7 +48,7 @@ class TradeModal extends React.Component {
                       addItem={this.addItem}
                     />
                     :
-                    this.state.userItem
+                    <Button basic color='green' onClick={this.submitTrade}>Submit Trade</Button>
                 }
               </Modal.Description>
             </Grid.Column>
