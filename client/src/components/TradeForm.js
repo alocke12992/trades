@@ -8,13 +8,12 @@ class TradeForm extends React.Component {
   handleChange = (e, {value}) => {
     console.log(e, value)
     this.setState({item: value})
-    console.log(this.state.item)
   }
   handleSubmit = (e) => {
     e.preventDefault()
     console.log("submit before closing")
     this.props.addItem(this.state.item)
-    this.setState({modalOpen: false, item: ''})
+    this.setState({modalOpen: false})
   }
 
   showItems = () => {
@@ -25,7 +24,7 @@ class TradeForm extends React.Component {
           <Form.Field key={item.id}>
             <Radio
               label={`${item.name}`}
-              name={`${item.id}`}
+              name={`${item.name}`}
               value={`${item.id}`}
               checked={this.state.item === `${item.id}`}
               onChange={this.handleChange}

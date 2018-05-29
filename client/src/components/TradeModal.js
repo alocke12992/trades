@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {Button, Header, Image, Modal, Grid, Form} from 'semantic-ui-react';
 
 class TradeModal extends React.Component {
-  state = {trading: false, userItem: ''}
+  state = {trading: false, userItem: ""}
   componentDidMount() {
     this.props.dispatch(getMyItems(this.props.tradeRequester.id))
   }
@@ -27,7 +27,6 @@ class TradeModal extends React.Component {
 
   addItem = (item) => {
     this.setState({userItem: item})
-    debugger
   }
 
   render() {
@@ -50,12 +49,16 @@ class TradeModal extends React.Component {
               <Modal.Description>
                 <Header>{wantedItem.name}</Header>
                 <p>Description:<br />{wantedItem.description}</p>
-                {/* <Button basic color="blue" onClick={this.toggleTrade}>Select Item to trade</Button> */}
-                <TradeForm
-                  wantedItem={wantedItem}
-                  requesterItems={[...requesterItems]}
-                  addItem={this.addItem}
-                />
+                {
+                  this.state.userItem === "" ?
+                    <TradeForm
+                      wantedItem={wantedItem}
+                      requesterItems={[...requesterItems]}
+                      addItem={this.addItem}
+                    />
+                    :
+                    this.state.userItem
+                }
               </Modal.Description>
             </Grid.Column>
           </Grid.Row>
@@ -67,7 +70,7 @@ class TradeModal extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    requesterItems: state.items
+    requesterItems: state.myItems
   }
 }
 
