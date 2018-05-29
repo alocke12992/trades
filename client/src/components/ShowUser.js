@@ -5,11 +5,11 @@ import Items from './Items';
 class ShowUser extends React.Component {
   state = {showItems: false}
 
-  listItems = (user) => {
+  listItems = (profile) => {
     return (
       <div>
         <Button onClick={this.toggleItems}>Close</Button>
-        <Items user={user} />
+        <Items profile={profile} />
       </div>
     )
   }
@@ -20,18 +20,18 @@ class ShowUser extends React.Component {
     })
   }
   render() {
-    const {user} = this.props
+    const {profile} = this.props
     return (
-      <Card key={user.id}>
-        <Image src={user.image} />
+      <Card key={profile.id}>
+        <Image src={profile.image} />
         <Card.Content>
           <Card.Header>
-            {user.nickname}
+            {profile.nickname}
           </Card.Header>
         </Card.Content>
         <Card.Content extra>
           {this.state.showItems ?
-            this.listItems(user)
+            this.listItems(profile)
             :
             <div>
               <Button basic color='green' onClick={this.toggleItems}>See Items</Button>

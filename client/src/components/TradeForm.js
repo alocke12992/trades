@@ -2,16 +2,19 @@ import React from 'react';
 import {Form, Button, Grid, Modal, Radio} from 'semantic-ui-react';
 
 class TradeForm extends React.Component {
-  state = {modalOpen: false, item: ""}
+  state = {modalOpen: false, item: ''}
 
   handleOpen = () => this.setState({modalOpen: true})
   handleChange = (e, {value}) => {
     console.log(e, value)
     this.setState({item: value})
+    console.log(this.state.item)
   }
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault()
     console.log("submit before closing")
-    this.setState({modalOpen: false})
+    this.props.addItem(this.state.item)
+    this.setState({modalOpen: false, item: ''})
   }
 
   showItems = () => {
@@ -22,9 +25,9 @@ class TradeForm extends React.Component {
           <Form.Field key={item.id}>
             <Radio
               label={`${item.name}`}
-              name='radioGroup'
-              value={`${item.name}`}
-              checked={this.state.item === `${item.name}`}
+              name={`${item.id}`}
+              value={`${item.id}`}
+              checked={this.state.item === `${item.id}`}
               onChange={this.handleChange}
             />
           </Form.Field>
@@ -44,10 +47,10 @@ class TradeForm extends React.Component {
           <Grid.Row centered verticalAlign="middle" columns={1}>
             <Grid.Column width={6}>
               <Modal.Content>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                   {this.showItems()}
                   <div>this is the form</div>
-                  <Button onClick={this.handleSubmit}>Submit</Button>
+                  <Form.Button>Submit</Form.Button>
                 </Form>
               </Modal.Content>
             </Grid.Column>

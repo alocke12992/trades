@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     resources :users do
       resources :items
     end
+    get "my_items", to: "items#my_items"
     get "profile", to: "users#my_profile"
+
   end
 
   #Do not place any routes below this one

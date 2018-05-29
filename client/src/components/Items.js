@@ -7,7 +7,7 @@ import TradeModal from './TradeModal';
 class Items extends React.Component {
   state = {trading: false}
   componentDidMount() {
-    this.props.dispatch(getItems(this.props.user.id))
+    this.props.dispatch(getItems(this.props.profile.id))
   }
 
   toggleTrade = (item) => {
@@ -16,7 +16,7 @@ class Items extends React.Component {
   }
 
   listItems = () => {
-    const {items = {}, user, currentUser} = this.props
+    const {items = {}, profile, currentUser} = this.props
 
     return (
       items.map(item => {
@@ -27,7 +27,7 @@ class Items extends React.Component {
               <List.Description as='p'>{item.description}</List.Description>
               <TradeModal
                 wantedItem={item}
-                tradeRecipient={user}
+                tradeRecipient={profile}
                 tradeRequester={currentUser}
               />
             </List.Content>

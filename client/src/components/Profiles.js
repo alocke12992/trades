@@ -4,17 +4,17 @@ import {Card} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {getProfiles} from '../actions/profiles';
 
-class Users extends React.Component {
+class Profiles extends React.Component {
   componentDidMount() {
     this.props.dispatch(getProfiles());
   }
 
   showUsers = () => {
-    const {users} = this.props
+    const {profiles} = this.props
     return (
-      users.map(user => {
+      profiles.map(profile => {
         return (
-          <ShowUser key={user.id} user={user} />
+          <ShowUser key={profile.id} profile={profile} />
         )
       })
     )
@@ -32,8 +32,8 @@ class Users extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    users: state.profiles
+    profiles: state.profiles
   }
 }
 
-export default connect(mapStateToProps)(Users)
+export default connect(mapStateToProps)(Profiles)

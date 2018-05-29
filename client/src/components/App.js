@@ -7,7 +7,7 @@ import Flash from './Flash';
 import Home from './Home';
 import AuthRoute from './AuthRoute';
 import FetchUser from './FetchUser';
-import Users from './Users';
+import Profiles from './Profiles';
 import Profile from './Profile'
 import ShowUser from './ShowUser';
 import Items from './Items';
@@ -23,7 +23,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={Profile} />
-            <Route exact path='/users' component={Users} />
+            <Route exact path='/users' component={Profiles} />
             <Route exact path='/users/:id' component={ShowUser} />
             <Route exact path='/users/:id/items' component={Items} />
             <AuthRoute exact path='/login' component={Login} />

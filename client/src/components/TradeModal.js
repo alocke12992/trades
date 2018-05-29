@@ -1,13 +1,13 @@
 import React from 'react';
 import TradeForm from './TradeForm';
-import {getItems} from '../actions/items';
+import {getMyItems} from '../actions/myItems';
 import {connect} from 'react-redux';
 import {Button, Header, Image, Modal, Grid, Form} from 'semantic-ui-react';
 
 class TradeModal extends React.Component {
-  state = {trading: false}
+  state = {trading: false, userItem: ''}
   componentDidMount() {
-    this.props.dispatch(getItems(this.props.tradeRequester.id))
+    this.props.dispatch(getMyItems(this.props.tradeRequester.id))
   }
 
   toggleTrade = () => {
@@ -23,6 +23,11 @@ class TradeModal extends React.Component {
     return (
       <TradeForm wantedItem={wantedItem} closeForm={this.toggleTrade} />
     )
+  }
+
+  addItem = (item) => {
+    this.setState({userItem: item})
+    debugger
   }
 
   render() {
@@ -46,7 +51,11 @@ class TradeModal extends React.Component {
                 <Header>{wantedItem.name}</Header>
                 <p>Description:<br />{wantedItem.description}</p>
                 {/* <Button basic color="blue" onClick={this.toggleTrade}>Select Item to trade</Button> */}
-                <TradeForm wantedItem={wantedItem} requesterItems={[...requesterItems]} closeForm={this.toggleTrade} />
+                <TradeForm
+                  wantedItem={wantedItem}
+                  requesterItems={[...requesterItems]}
+                  addItem={this.addItem}
+                />
               </Modal.Description>
             </Grid.Column>
           </Grid.Row>
